@@ -1,35 +1,45 @@
 package pdf.merge.application.BLL;
 
 import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.*;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+
+import org.apache.pdfbox.multipdf.PDFMergerUtility;
+import org.apache.pdfbox.tools.PDFMerger;
 
 public class MergePdf {
 
-    static List<URL> files = new ArrayList<URL>(Arrays.asList(
-            MergePdf.class.getResource("/example-001.pdf"),
-            MergePdf.class.getResource("/example-002.pdf"),
-            MergePdf.class.getResource("/example-003.pdf")
-    ));
+    public static void Merge(File[] fileList, String Destination) throws IOException{
+        PDFMergerUtility ut = new PDFMergerUtility();
+        
+//        int totalPages = 0;
+//
+//        // Create writer for the outputStream
+//        PdfWriter writer = PdfWriter.getInstance(document, outputStream);
+//
+//        //Open document.
+//        document.open();
+//
+//        //Contain the pdf data.
+//        PdfContentByte pageContentByte = writer.getDirectContent();
+//
+//        PdfImportedPage pdfImportedPage;
+//        int currentPdfReaderPage = 1;
+//        java.util.Iterator<PdfReader> iteratorPDFReader = readers.iterator();
 
-    public static void main(String... args) throws IOException, DocumentException {
-        Document document = new Document();
-        PdfCopy copy = new PdfCopy(document, new FileOutputStream("merge-pdf-result.pdf"));
-
-        document.open();
-        for (URL file : files){
-            PdfReader reader = new PdfReader(file);
-            copy.addDocument(reader);
-            copy.freeReader(reader);
-            reader.close();
+        // Iterate and process the reader list.
+        for (int i = 0; i < fileList.length; i++) {
+        	
+        	ut.addSource(fileList[i].getPath());
+        	
         }
-        document.close();
+        ut.setDestinationFileName(Destination);
+    	ut.mergeDocuments();;
+
+        System.out.println("Les fichiers ont bien étés fusionnés.");
     }
+    
 }

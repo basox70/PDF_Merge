@@ -13,6 +13,7 @@ import javax.swing.JFileChooser;
 
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 
 public class MainWindow extends javax.swing.JFrame {
     
@@ -147,7 +148,12 @@ public class MainWindow extends javax.swing.JFrame {
         pack();
     }
     protected void MergePDFActionPerformed(ActionEvent evt) {
-    	
+    	try {
+			MergePdf.Merge(fileList, "D:\\Documents\\Ecole\\EPSI\\Cours B3-2\\JAVA\\projet java\\merged\\test.pdf");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void AddTextActionPerformed(ActionEvent evt) {
