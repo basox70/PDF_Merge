@@ -16,7 +16,8 @@ import java.io.File;
 
 public class MainWindow extends javax.swing.JFrame {
     
-    private String windowTitle = "Fusionneur de PDF";
+	private static final long serialVersionUID = 1L;
+	private String windowTitle = "Fusionneur de PDF";
     private String chooserDialogTitle = "Sélectionnez un dossier";
     private String noFolderSelectedMessage = "Aucun dossier n'a été sélectionné";
     
@@ -101,6 +102,11 @@ public class MainWindow extends javax.swing.JFrame {
         Editer.setText(" Editer");
 
         MergePDF.setText("Fusionner les fichiers");
+        MergePDF.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+            	MergePDFActionPerformed(evt);
+            }
+        });
         
         AddText.setText("Ajouter du texte");
         AddText.addActionListener(new ActionListener() {
@@ -140,7 +146,12 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }
-    private void AddTextActionPerformed(ActionEvent evt) {
+    protected void MergePDFActionPerformed(ActionEvent evt) {
+    	
+	}
+
+	private void AddTextActionPerformed(ActionEvent evt) {
+		PDFEdit.Edit(fileList);
 	}
     
     private void OpenFolderActionPerformed(ActionEvent evt) {//GEN-FIRST:event_OpenFolderActionPerformed
