@@ -6,15 +6,17 @@
 
 package pdf.merge.application.DTO;
 
-import pdf.merge.application.BLL.FileFinder;
+import pdf.merge.application.BLL.*;
 
 import javax.swing.JFrame;
 import javax.swing.JFileChooser;
+
+import java.awt.event.*;
 import java.io.File;
 
 public class MainWindow extends javax.swing.JFrame {
     
-    private String windowTitle = "Outil d'édition de PDF";
+    private String windowTitle = "Fusionneur de PDF";
     private String chooserDialogTitle = "Sélectionnez un dossier";
     private String noFolderSelectedMessage = "Aucun dossier n'a été sélectionné";
     
@@ -25,16 +27,11 @@ public class MainWindow extends javax.swing.JFrame {
     private javax.swing.JMenu Editer;
     private javax.swing.JMenuItem Exit;
     private javax.swing.JMenuItem MergePDF;
+    private javax.swing.JMenuItem AddText;
     private javax.swing.JMenuItem OpenFolder;
-    private javax.swing.JMenu Preferences;
+    private javax.swing.JMenu File;
     private javax.swing.JMenuItem Settings;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea listContainer;
     
@@ -53,32 +50,17 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void initComponents() {
 
-        jMenuBar2 = new javax.swing.JMenuBar();
-        jMenu2 = new javax.swing.JMenu();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
-        jPopupMenu1 = new javax.swing.JPopupMenu();
         jScrollPane1 = new javax.swing.JScrollPane();
         listContainer = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
-        Preferences = new javax.swing.JMenu();
+        File = new javax.swing.JMenu();
         OpenFolder = new javax.swing.JMenuItem();
         Settings = new javax.swing.JMenuItem();
         Exit = new javax.swing.JMenuItem();
         Editer = new javax.swing.JMenu();
         MergePDF = new javax.swing.JMenuItem();
+        AddText = new javax.swing.JMenuItem();
         Aide = new javax.swing.JMenu();
-
-        jMenu2.setText("File");
-        jMenuBar2.add(jMenu2);
-
-        jMenu3.setText("Edit");
-        jMenuBar2.add(jMenu3);
-
-        jMenuItem1.setText("jMenuItem1");
-
-        jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -91,36 +73,45 @@ public class MainWindow extends javax.swing.JFrame {
         listContainer.setMargin(new java.awt.Insets(10, 10, 10, 10));
         jScrollPane1.setViewportView(listContainer);
 
-        Preferences.setText("Fichier");
+        File.setText("Fichier");
 
         OpenFolder.setText("Ouvrir un dossier");
-        OpenFolder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        OpenFolder.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 OpenFolderActionPerformed(evt);
             }
         });
-        Preferences.add(OpenFolder);
+        File.add(OpenFolder);
         OpenFolder.getAccessibleContext().setAccessibleDescription("");
 
         Settings.setText("Réglages");
 
-        Preferences.add(Settings);
+        File.add(Settings);
 
         Exit.setText("Quitter");
-        Exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        Exit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 ExitActionPerformed(evt);
             }
         });
-        Preferences.add(Exit);
+        File.add(Exit);
 
-        jMenuBar1.add(Preferences);
+        jMenuBar1.add(File);
 
         Editer.setText(" Editer");
 
         MergePDF.setText("Fusionner les fichiers");
+        
+        AddText.setText("Ajouter du texte");
+        AddText.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                AddTextActionPerformed(evt);
+            }
+        });
 
         Editer.add(MergePDF);
+        
+        Editer.add(AddText);
 
         jMenuBar1.add(Editer);
 
@@ -149,12 +140,14 @@ public class MainWindow extends javax.swing.JFrame {
 
         pack();
     }
-
-    private void OpenFolderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpenFolderActionPerformed
+    private void AddTextActionPerformed(ActionEvent evt) {
+	}
+    
+    private void OpenFolderActionPerformed(ActionEvent evt) {//GEN-FIRST:event_OpenFolderActionPerformed
         displayBrowserWindow();
     }
 
-    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
+    private void ExitActionPerformed(ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
         System.exit(0);
     }
 
