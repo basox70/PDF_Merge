@@ -6,14 +6,30 @@
 
 package pdf.merge.application.DTO;
 
-import pdf.merge.application.BLL.*;
-
-import javax.swing.*;
-
 import java.awt.GridLayout;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+
+import com.itextpdf.text.DocumentException;
+
+import pdf.merge.application.BLL.FileFinder;
+import pdf.merge.application.BLL.MergePdf;
+import pdf.merge.application.BLL.PDFEdit;
 
 public class MainWindow extends javax.swing.JFrame {
 
@@ -24,6 +40,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 	private static File[] fileList;
 	private String absolutePath;
+	private String destFile;
 
 	private JMenu Aide;
 	private JMenu Editer;
@@ -52,7 +69,6 @@ public class MainWindow extends javax.swing.JFrame {
 
 	// Popup to select destination file and folder
 	private void display() {
-		String path = fileList[0].getPath();
 		JButton button = new JButton("Choisir");
 		JTextField field1 = new JTextField("Mon PDF");
 		JTextField field2 = new JTextField("C:\\");
@@ -84,11 +100,12 @@ public class MainWindow extends javax.swing.JFrame {
 				JOptionPane.PLAIN_MESSAGE);
 		if (result == JOptionPane.OK_OPTION) {
 			System.out.println(field1.getText() + "\\" + field2.getText());
-			String destFile = field2.getText() + "\\"+ field1.getText() + ".pdf";
-			System.out.println(destFile);
+			destFile = field2.getText() + "\\" + field1.getText();
+			System.out.println(destFile + ".pdf");
 			try {
-				MergePdf.Merge(fileList, destFile);
-			} catch (IOException e1) {
+				MergePdf.Merge(fileList, destFile + ".pdf");
+				PDFEdit.Edit(destFile);
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		} else {
@@ -134,7 +151,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 		Settings.setText("Réglages");
 
-		File.add(Settings);
+		// File.add(Settings);
 
 		Exit.setText("Quitter");
 		Exit.addActionListener(new ActionListener() {
@@ -164,7 +181,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 		Editer.add(MergePDF);
 
-		Editer.add(AddText);
+		// Editer.add(AddText);
 
 		jMenuBar1.add(Editer);
 
@@ -190,7 +207,15 @@ public class MainWindow extends javax.swing.JFrame {
 	}
 
 	private void AddTextActionPerformed(ActionEvent evt) {
-		PDFEdit.Edit(fileList);
+		try {
+			PDFEdit.Edit(destFile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void OpenFolderActionPerformed(ActionEvent evt) {
