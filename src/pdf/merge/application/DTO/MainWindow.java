@@ -42,12 +42,13 @@ public class MainWindow extends javax.swing.JFrame {
 	private String absolutePath;
 	private String destFile;
 
-	private JMenu Aide;
-	private JMenu Editer;
+	private JMenu Help;
+	private JMenu Edit;
 	private JMenuItem Exit;
 	private JMenuItem MergePDF;
 	private JMenuItem AddText;
 	private JMenuItem OpenFolder;
+	private JMenuItem About;
 	private JMenu File;
 	private JMenuItem Settings;
 	private JMenuBar jMenuBar1;
@@ -63,7 +64,7 @@ public class MainWindow extends javax.swing.JFrame {
 		this.setSize(750, 500);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setLocationRelativeTo(null);
-		Editer.setEnabled(false);
+		Edit.setEnabled(false);
 		this.setVisible(true);
 	}
 
@@ -122,10 +123,11 @@ public class MainWindow extends javax.swing.JFrame {
 		OpenFolder = new javax.swing.JMenuItem();
 		Settings = new javax.swing.JMenuItem();
 		Exit = new javax.swing.JMenuItem();
-		Editer = new javax.swing.JMenu();
+		Edit = new javax.swing.JMenu();
 		MergePDF = new javax.swing.JMenuItem();
 		AddText = new javax.swing.JMenuItem();
-		Aide = new javax.swing.JMenu();
+		Help = new javax.swing.JMenu();
+		About = new javax.swing.JMenuItem();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setResizable(false);
@@ -163,7 +165,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 		jMenuBar1.add(File);
 
-		Editer.setText(" Editer");
+		Edit.setText(" Editer");
 
 		MergePDF.setText("Fusionner les fichiers");
 		MergePDF.addActionListener(new ActionListener() {
@@ -179,15 +181,24 @@ public class MainWindow extends javax.swing.JFrame {
 			}
 		});
 
-		Editer.add(MergePDF);
+		Edit.add(MergePDF);
 
-		// Editer.add(AddText);
+		// Edit.add(AddText);
 
-		jMenuBar1.add(Editer);
+		jMenuBar1.add(Edit);
 
-		Aide.setText("Aide");
+		Help.setText("Aide");
 
-		jMenuBar1.add(Aide);
+		About.setText("About");
+		About.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent evt) {
+				ShowHelpActionPerformed(evt);
+			}
+		});
+
+		Help.add(About);
+
+		jMenuBar1.add(Help);
 
 		setJMenuBar(jMenuBar1);
 
@@ -204,6 +215,22 @@ public class MainWindow extends javax.swing.JFrame {
 						.addContainerGap()));
 
 		pack();
+	}
+
+	private void ShowHelpActionPerformed(ActionEvent evt) {
+
+		JTextArea field1 = new JTextArea("Cette application sert à fusionner les PDF contenu dans un dossier.\n"
+				+ "Celle-ci a été développé par :"
+				+ "\n\t- Thibaut DELCOURT\n\t- Basile DUBRUQUE\n\t- Alexandre FRETEL");
+		field1.setEditable(false);
+		field1.setRows(5);
+		field1.setColumns(20);
+		field1.setTabSize(4);
+		field1.setFocusable(false);
+		JPanel panel = new JPanel(new GridLayout(0, 1));
+		panel.add(field1);
+		int result = JOptionPane.showConfirmDialog(null, panel, "About", JOptionPane.CLOSED_OPTION,
+				JOptionPane.PLAIN_MESSAGE);
 	}
 
 	private void AddTextActionPerformed(ActionEvent evt) {
@@ -237,7 +264,7 @@ public class MainWindow extends javax.swing.JFrame {
 			absolutePath = chooser.getSelectedFile().getAbsolutePath();
 			fileList = FileFinder.find(absolutePath);
 			printFileNames(fileList);
-			Editer.setEnabled(true);
+			Edit.setEnabled(true);
 		} else {
 			listContainer.setText("");
 			listContainer.append(noFolderSelectedMessage);
