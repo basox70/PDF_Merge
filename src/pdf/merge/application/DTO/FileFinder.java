@@ -1,5 +1,5 @@
 
-package pdf.merge.application.BLL;
+package pdf.merge.application.DTO;
 
 import java.io.File;
 import java.io.FilenameFilter;

@@ -27,10 +27,6 @@ import javax.swing.JTextField;
 
 import com.itextpdf.text.DocumentException;
 
-import pdf.merge.application.BLL.FileFinder;
-import pdf.merge.application.BLL.MergePdf;
-import pdf.merge.application.BLL.PDFEdit;
-
 public class MainWindow extends javax.swing.JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -189,7 +185,7 @@ public class MainWindow extends javax.swing.JFrame {
 
 		Help.setText("Aide");
 
-		About.setText("About");
+		About.setText("A propos");
 		About.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 				ShowHelpActionPerformed(evt);
