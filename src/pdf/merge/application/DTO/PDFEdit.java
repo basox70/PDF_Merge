@@ -16,7 +16,7 @@ public class PDFEdit {
 
 		/* example inspired from "iText in action" (2006), chapter 2 */
 
-		PdfReader reader = new PdfReader(absolutePath); // input PDF
+		PdfReader reader = new PdfReader(absolutePath + ".pdf"); // input PDF
 		PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(absolutePath + "_modified.pdf")); // output
 																											// PDF
 		BaseFont bf = BaseFont.createFont(BaseFont.HELVETICA, BaseFont.CP1252, BaseFont.NOT_EMBEDDED); // set

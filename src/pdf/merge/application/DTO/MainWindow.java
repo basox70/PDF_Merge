@@ -225,6 +225,7 @@ public class MainWindow extends javax.swing.JFrame {
 		field1.setFocusable(false);
 		JPanel panel = new JPanel(new GridLayout(0, 1));
 		panel.add(field1);
+		@SuppressWarnings("unused")
 		int result = JOptionPane.showConfirmDialog(null, panel, "About", JOptionPane.CLOSED_OPTION,
 				JOptionPane.PLAIN_MESSAGE);
 	}
